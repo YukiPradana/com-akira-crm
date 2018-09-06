@@ -219,8 +219,8 @@
             $('#list-isi').empty();
             $('#list-isi').append('<ons-list modifier="inset" id="list-tambah"><ons-list-item modifier="longdivider">' +
                 '<ons-row><ons-col width="40%" style="text-align: right">Jenis Kelamin:</ons-col><ons-col width="2%"></ons-col>' +
-                '<ons-col width="58%"><ons-radio name="jenisKelamin2" value="l" input-id="radio-1" checked></ons-radio><label for="radio-1"> Pria  </label>' +
-                '<ons-radio name="jenisKelamin2" value="p" input-id="radio-2" ></ons-radio><label for="radio-2" > Wanita</label></ons-col></ons-row></ons-list-item>' +
+                '<ons-col width="58%"><ons-radio class="jenis2" name="jenisKelamin2" value="l" input-id="radio-1" checked></ons-radio><label for="radio-1"> Pria  </label>' +
+                '<ons-radio class="jenis2" name="jenisKelamin2" value="p" input-id="radio-2" ></ons-radio><label for="radio-2" > Wanita</label></ons-col></ons-row></ons-list-item>' +
                 '<ons-list-item modifier="longdivider"><ons-row><ons-col width="40%" style="text-align: right">Paket Jasa :</ons-col>' +
                 '<ons-col width="2%"></ons-col><ons-col width="58%" style="text-align: left">' +
                 '<ons-input type="button" id="input-paket-jasa" type="text" modifier="transparent" style="width: 100%;" placeholder=""></ons-input>' +
@@ -235,6 +235,17 @@
                 '<ons-col width="40%" style="text-align: right">Terapis :</ons-col><ons-col width="2%"></ons-col><ons-col width="58%">' +
                 '<ons-input type="button" id="input-terapis" type="text" modifier="transparent" style="width: 100%;" placeholder=""></ons-input></ons-col></ons-row></ons-list-item>' +
                 '<ons-list-item modifier="longdivider"><ons-row><ons-col width="42%"></ons-col><ons-col width="58%"><ons-button id="tombol-tambah-pesanan" modifier="large">Tambah</ons-button></ons-col></ons-row></ons-list-item></div>');
+            var idJeniskelamin = 'radio-1';
+            const radios = document.querySelectorAll('.jenis2')
+            for (var i = 0; i < radios.length; i++) {
+                var radio = radios[i];
+                radio.addEventListener('change', function (event) {
+                    if (event.target.id !== idJeniskelamin) {
+                        // $('#input-terapis').value = "";
+                        document.getElementById("input-terapis").value = null;
+                    }
+                })
+            }
             $('#input-terapis').on('click', function () {
                 // hitungJamBerakhir(jamReservasi);
                 var waktu = jamReservasi;
@@ -251,7 +262,6 @@
                 document.querySelector('#myNavigator').pushPage('daftar-terapis.html');
             });
             $('#tombol-tambah-pesanan').on('click', function () {
-
                 if (document.getElementById("input-terapis").value != "") {
                     let coba = waktuProdukDipilih;
                     arrayPesanan.push({ 'id': iterasi, 'id_produk': idProdukDipilih, 'id_terapis': idTerapisDipilih });

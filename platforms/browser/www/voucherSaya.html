@@ -82,9 +82,9 @@
                     $.each(x, function (key, voucher) {
                         if (voucher.jumlah > 0) {
                             let logoVoucher;
-                            if (voucher.logo_voucher == null || voucher.logo_voucher == "-"){
+                            if (voucher.logo_voucher == null || voucher.logo_voucher == "-") {
                                 logoVoucher = "img/kupon2.png";
-                            } else{
+                            } else {
                                 logoVoucher = voucher.logo_voucher;
                             }
                             var tahun = voucher.tanggal_kadaluarsa.substr(0, 4);
@@ -94,7 +94,16 @@
                             var menit = voucher.tanggal_kadaluarsa.substr(14, 2);
                             var tanggal = hari + '-' + bulan + '-' + tahun + ', ' + jam + ':' + menit;
                             $daftar_voucher.append('<ons-list-item expandable id="voucher-' + key + '"> <img src="' + logoVoucher + '" style="width: 98%;"><div class="expandable-content">voucher ini berlaku sampai tanggal :<br><strong>' +
-                                tanggal + '</strong><br> Ketentuan &nbsp&nbsp&nbsp&nbsp&nbsp: <strong>' + voucher.syarat+ '</strong><br> Kode Voucher : <strong>' + voucher.kode + '</strong><hr width="98%"><ons-row><ons-col width="48%"><ons-button id="gambarQR-' + key + '" modifier="large">Kode QR</ons-button></ons-col><ons-col width="4%"></ons-col><ons-col width="48%"><ons-button id="kirimVoucher-' + key + '" modifier="large">Kirim voucher</ons-button></ons-col></ons-row></div></ons-list-item>');
+                                tanggal + '</strong><ons-row>' +
+                                '<ons-col width="40%">Ketentuan</ons-col>' +
+                                '<ons-col width="3%">:</ons-col>' +
+                                '<ons-col width="50%"><strong>' + voucher.syarat + '</strong></ons-col>' +
+                                '</ons-row>' +
+                                '<ons-row>' +
+                                '<ons-col width="40%">Kode Voucher</ons-col>' +
+                                '<ons-col width="3%">:</ons-col>' +
+                                '<ons-col width="50%"><strong>' + voucher.kode + '</strong></ons-col>' +
+                                '<hr width="98%"><ons-row><ons-col width="48%"><ons-button id="gambarQR-' + key + '" modifier="large">Kode QR</ons-button></ons-col><ons-col width="4%"></ons-col><ons-col width="48%"><ons-button id="kirimVoucher-' + key + '" modifier="large">Kirim voucher</ons-button></ons-col></ons-row></div></ons-list-item>');
                             $('#gambarQR-' + key).on('click', function () {
                                 //console.log(voucher.logo_qr);
                                 // var gambar = voucher.kode;
@@ -131,7 +140,7 @@
                                 }
                             });
                             console.log(data);
-                        } else{
+                        } else {
 
                         }
                     });

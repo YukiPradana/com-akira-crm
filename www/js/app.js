@@ -25,6 +25,9 @@ var jamBerakhirReservasi;
 var idReservasi;
 var isiAbout;
 
+//variable ratting
+var arrayRating = [];
+
 
 
 document.addEventListener('init', function (event) {
@@ -465,6 +468,43 @@ function showModal7() {
     document.querySelector('#ons-modal7').show();
 }
 
+
+//fungsi Ratting
+function cekRating() {
+    arrayRating=[];
+    $.ajax({
+        type: 'GET',
+        url: _URL + '{headerReservasi(username: "' + _ID_USER + '") {id, tanggal_reservasi, kode, detail_reservasi{ header_reservasi_id, produk_id{waktu,nama,harga,kode}karyawan_id{id,nama}},status_reservasi {status,progress}}}',
+        success: function (reservasi) {
+            console.log(reservasi);
+            $('#loading').remove();
+            $("#riwayatReservasi").empty();
+            $('#riwayatReservasi').append('<ons-list-header>Riwayat transaksi anda</ons-list-header>');
+            $.each(reservasi.data.headerReservasi, function (key, reser) {
+                let tanggal = reser.tanggal_reservasi;
+                let thn = tanggal.substr(0, 4);
+                let bln = tanggal.substr(5, 2);
+                let hari = tanggal.substr(8, 2);
+                let jam = tanggal.substr(11, 5);
+                let tanggal2 = hari + '-' + bln + '-' + thn + ', ' + jam;
+                if (reser.status_reservasi[0].progress === "checkin" && reser.status_reservasi[0].status === "konfirm") {
+                    $.each(reservasi.data.headerReservasi[key].detail_reservasi, function (key1, detail) {
+                        console.log("push Array");
+                        arrayRating.push({ 'tanggal': tanggal2 , 'namaProduk': detail.produk_id.nama, 'id_terapis': detail.karyawan_id.id, 'namaKaryawan': detail.karyawan_id.nama });
+                        console.log("rating : " + String(arrayRating.length));
+                    });
+                }
+            });
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+}
+
+// function setDataRatting(tanggal, id_jasa, id_karyawan){
+
+// }
 
 // hide dialog pada halaman reservasiUser
 var hideDialogReser = function () {

@@ -96,7 +96,7 @@
                                 let tanggal2 = hari + '-' + bln + '-' + thn + ', ' + jam;
                                 let id = reser.id;
                                // var list = $("<ons-list-item expandable><span><strong>" + tanggal2 + "</strong></span><div class='expandable-content' id='list-content-" + key + "'><span>Tempat\t : Akira Reflexology</span><br></div></ons-list-item>");
-                                var list2 = $('<ons-list-item style="background-color: '+color+'" ><span class="list-item__title">' + tanggal2 + '</span><br><span class="list-item__subtitle" id="list-content-' + key + '">Tempat\t : Akira Reflexology<br></span></ons-list-item>');
+                                var list2 = $('<ons-list-item style="background-color: '+color+'"><span class="list-item__title">' + tanggal2 + '</span><br><span class="list-item__subtitle" id="list-content-' + key + '">Tempat\t : Akira Reflexology<br></span></ons-list-item>');
                                 $("#riwayatReservasi").append(list2);
                                 //looping pesanannya
                                 $.each(reservasi.data.headerReservasi[key].detail_reservasi, function (key1, detail) {

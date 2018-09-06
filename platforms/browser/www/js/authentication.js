@@ -5,14 +5,17 @@ var _ID_USER;
 var _ID_SERVER_USER;
 var _JENIS_KELAMIN;
 
+
 function Login(userMasuk, passMasuk) {
     if (_STORAGE.getItem('token')) {     //Debug
         _STORAGE.removeItem('token');
     };
+
+    _FCM_TOKEN=getFirebaseToken();
     showModal();
     $.ajax({
         type: 'POST',
-        url: _URL + 'mutation{Authenticate(input: {username:"' + userMasuk + '", password:"' + passMasuk + '"}) {token, user {id, username, jenis_kelamin, nama, organizations{nama,scopes}}}}',
+        url: _URL + 'mutation{Authenticate(input: {username:"' + userMasuk + '", password:"' + passMasuk + '",fcm_token:"'+_FCM_TOKEN+'"}) {token, user {id, username, jenis_kelamin, nama, organizations{nama,scopes}}}}',
         success: function (data) {
             document.querySelector('#ons-modal').hide();
             var isi = data.data.Authenticate;
@@ -31,6 +34,7 @@ function Login(userMasuk, passMasuk) {
                 _STORAGE.setItem('id-server-user', _ID_SERVER_USER);
                 _STORAGE.setItem('jenis_kelamin', _JENIS_KELAMIN);
                 _STORAGE.setItem('expired_date_token', _EXPIRED_DATE_TOKEN);
+                _STORAGE.setItem('firebase_token', _FCM_TOKEN);
                 console.log(_STORAGE.getItem('token'));
                 if (_STORAGE.getItem('token')) {
                     document.querySelector('#myNavigator').replacePage('menuUtama.html');
@@ -57,6 +61,8 @@ function Logout() {
     _STORAGE.removeItem('id-server-user');
     _STORAGE.removeItem('jenis_kelamin');
     _STORAGE.removeItem('expired_date_token');
+    _STORAGE.removeItem('firebase_token', _FCM_TOKEN);
+    // revokeFirebaseToken();
     document.querySelector('#myNavigator').resetToPage('login.html');
 }
 
@@ -92,9 +98,13 @@ function LoginAuthenticate() {
         } else {
             _STORAGE.removeItem('token');
             _STORAGE.removeItem('nama_user');
+            _STORAGE.removeItem('id-user');
+            _STORAGE.removeItem('id-server-user');
             _STORAGE.removeItem('expired_date_token');
             _STORAGE.removeItem('id-server-user');
             _STORAGE.removeItem('jenis_kelamin');
+            _STORAGE.removeItem('firebase_token', _FCM_TOKEN);
+            // revokeFirebaseToken();
             ons.notification.alert('Anda harus login ulang');
             document.querySelector('#myNavigator').pushPage('login.html');
         }

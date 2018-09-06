@@ -1,3 +1,6 @@
+var _FCM_TOKEN;
+
+
 document.addEventListener("deviceready", function () {
     cordova.plugins.firebase.messaging.onMessage(function (payload) {
         console.log("New foreground FCM message: ", payload);
@@ -11,22 +14,24 @@ document.addEventListener("deviceready", function () {
     cordova.plugins.firebase.messaging.requestPermission().then(function (token) {
         console.log("APNS device token: " + token);
     });
-   
+    // _FCM_TOKEN=getFirebaseToken();
 });
 
 
 function getFirebaseToken() {
     try {
         cordova.plugins.firebase.messaging.getToken().then(function (token) {
+            alert(token);
             return token;
         });
     } catch (err) {
-        alert("error bwang");
+        // 
+        return "error";
     }
 }
 
-function revokeFirebaseToken(){
-    cordova.plugins.firebase.messaging.revokeToken().then(function() {
-        console.log("Token revoked successfully");
-    });
-}
+// function revokeFirebaseToken(){
+//     cordova.plugins.firebase.messaging.revokeToken().then(function() {
+//         console.log("Token revoked successfully");
+//     });
+// }

@@ -1,3 +1,6 @@
+var _FCM_TOKEN;
+
+
 document.addEventListener("deviceready", function () {
     cordova.plugins.firebase.messaging.onMessage(function (payload) {
         console.log("New foreground FCM message: ", payload);
@@ -25,8 +28,8 @@ function getFirebaseToken() {
     }
 }
 
-function revokeFirebaseToken(){
-    cordova.plugins.firebase.messaging.revokeToken().then(function() {
-        console.log("Token revoked successfully");
-    });
-}
+// function revokeFirebaseToken(){
+//     cordova.plugins.firebase.messaging.revokeToken().then(function() {
+//         console.log("Token revoked successfully");
+//     });
+// }

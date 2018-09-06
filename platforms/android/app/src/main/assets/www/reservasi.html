@@ -241,7 +241,8 @@
                 var radio = radios[i];
                 radio.addEventListener('change', function (event) {
                     if (event.target.id !== idJeniskelamin) {
-                        $('#input-terapis').val = "";
+                        // $('#input-terapis').value = "";
+                        document.getElementById("input-terapis").value = null;
                     }
                 })
             }

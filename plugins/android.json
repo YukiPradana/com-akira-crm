@@ -1,0 +1,30 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-firebase-messaging": {
+      "FIREBASE_MESSAGING_VERSION": "17.1.+",
+      "ANDROID_SUPPORT_VERSION": "27.+",
+      "PACKAGE_NAME": "com.myapp.fcmTest"
+    },
+    "cordova-plugin-datetimepicker": {
+      "PACKAGE_NAME": "com.myapp.fcmTest"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-support-android-plugin": {
+      "PACKAGE_NAME": "com.myapp.fcmTest"
+    },
+    "cordova-support-google-services": {
+      "PACKAGE_NAME": "com.myapp.fcmTest"
+    }
+  }
+}

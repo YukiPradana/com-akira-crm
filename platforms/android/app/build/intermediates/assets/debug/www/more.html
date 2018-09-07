@@ -31,8 +31,10 @@
         </ons-list-item>
     </ons-list>
     <script>
-        ons.getScriptPage().onInit = function () {
+        ons.getScriptPage().onShow = function () {
             Authenticate();
+        };
+        ons.getScriptPage().onInit = function () {
             //get untuk halaman about agar lgsg keLoad
             $.ajax({
                 type: 'post',

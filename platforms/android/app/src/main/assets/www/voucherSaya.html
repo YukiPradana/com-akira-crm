@@ -79,69 +79,73 @@
                 success: function (data) {
                     $('#loading').remove();
                     var x = data.data.users[0].voucher;
+                    var tanggalHariIni = getTanggal();
                     $.each(x, function (key, voucher) {
-                        if (voucher.jumlah > 0) {
-                            let logoVoucher;
-                            if (voucher.logo_voucher == null || voucher.logo_voucher == "-") {
-                                logoVoucher = "img/kupon2.png";
-                            } else {
-                                logoVoucher = voucher.logo_voucher;
-                            }
-                            var tahun = voucher.tanggal_kadaluarsa.substr(0, 4);
-                            var bulan = voucher.tanggal_kadaluarsa.substr(5, 2);
-                            var hari = voucher.tanggal_kadaluarsa.substr(8, 2);
-                            var jam = voucher.tanggal_kadaluarsa.substr(11, 2);
-                            var menit = voucher.tanggal_kadaluarsa.substr(14, 2);
-                            var tanggal = hari + '-' + bulan + '-' + tahun + ', ' + jam + ':' + menit;
-                            $daftar_voucher.append('<ons-list-item expandable id="voucher-' + key + '"> <img src="' + logoVoucher + '" style="width: 98%;"><div class="expandable-content">voucher ini berlaku sampai tanggal :<br><strong>' +
-                                tanggal + '</strong><ons-row>' +
-                                '<ons-col width="40%">Ketentuan</ons-col>' +
-                                '<ons-col width="3%">:</ons-col>' +
-                                '<ons-col width="50%"><strong>' + voucher.syarat + '</strong></ons-col>' +
-                                '</ons-row>' +
-                                '<ons-row>' +
-                                '<ons-col width="40%">Kode Voucher</ons-col>' +
-                                '<ons-col width="3%">:</ons-col>' +
-                                '<ons-col width="50%"><strong>' + voucher.kode + '</strong></ons-col>' +
-                                '<hr width="98%"><ons-row><ons-col width="48%"><ons-button id="gambarQR-' + key + '" modifier="large">Kode QR</ons-button></ons-col><ons-col width="4%"></ons-col><ons-col width="48%"><ons-button id="kirimVoucher-' + key + '" modifier="large">Kirim voucher</ons-button></ons-col></ons-row></div></ons-list-item>');
-                            $('#gambarQR-' + key).on('click', function () {
-                                //console.log(voucher.logo_qr);
-                                // var gambar = voucher.kode;
-                                $('#title').append('<span>Kode QR</span>');
-                                $('#content').append('<div style="padding-left: -10%" id="qrcode"></div>');
-                                $('#footer').append('<button class="alert-dialog-button" onclick="hideDialog()">Tutup</button>');
-                                var qrcode = new QRCode("qrcode");
-
-                                function buatQR() {
-                                    var elText = voucher.kode;
-                                    qrcode.makeCode(elText);
-                                    // if (!elText.value) {
-                                    //     alert("Input a text");
-                                    //     elText.focus();
-                                    //     return;
-                                    // }
-                                }
-                                buatQR();
-
-                                var dialog = document.getElementById('Qr-dialog');
-                                if (dialog) {
-                                    dialog.show();
-                                }
-                            });
-                            $('#kirimVoucher-' + key).on('click', function () {
-                                var idVoucher = voucher.id;
-                                $('#title').append('<span>Kirim Voucher</span>');
-                                $('#content').append('<ons-input id="nomor-tujuan" modifier="transparent" type="number" style="width: 100%;" onclick="" placeholder="masukkan nomor"></ons-input>');
-                                $('#footer').append('<ons-row><ons-col width="48%"><button class="alert-dialog-button" onclick="hideDialog()">Tutup</button></ons-col><ons-col width="4%"></ons-col><ons-col width="48%"><button class="alert-dialog-button" onclick="kirimVoucher(' + idVoucher + ')">Kirim</button></ons-col></ons-row>');
-                                console.log(idVoucher);
-                                var dialog = document.getElementById('Qr-dialog');
-                                if (dialog) {
-                                    dialog.show();
-                                }
-                            });
-                            console.log(data);
+                        if (tanggalHariIni >= voucher.tanggal_kadaluarsa.substr(0, 10)) {
+                            ons.notification.alert(voucher.id);
                         } else {
+                            if (voucher.jumlah > 0) {
+                                let logoVoucher;
+                                if (voucher.logo_voucher == null || voucher.logo_voucher == "-") {
+                                    logoVoucher = "img/kupon2.png";
+                                } else {
+                                    logoVoucher = voucher.logo_voucher;
+                                }
+                                var tahun = voucher.tanggal_kadaluarsa.substr(0, 4);
+                                var bulan = voucher.tanggal_kadaluarsa.substr(5, 2);
+                                var hari = voucher.tanggal_kadaluarsa.substr(8, 2);
+                                var jam = voucher.tanggal_kadaluarsa.substr(11, 2);
+                                var menit = voucher.tanggal_kadaluarsa.substr(14, 2);
+                                var tanggal = hari + '-' + bulan + '-' + tahun + ', ' + jam + ':' + menit;
+                                $daftar_voucher.append('<ons-list-item expandable id="voucher-' + key + '"> <img src="' + logoVoucher + '" style="width: 98%;"><div class="expandable-content">voucher ini berlaku sampai tanggal :<br><strong>' +
+                                    tanggal + '</strong><ons-row>' +
+                                    '<ons-col width="40%">Ketentuan</ons-col>' +
+                                    '<ons-col width="3%">:</ons-col>' +
+                                    '<ons-col width="50%"><strong>' + voucher.syarat + '</strong></ons-col>' +
+                                    '</ons-row>' +
+                                    '<ons-row>' +
+                                    '<ons-col width="40%">Kode Voucher</ons-col>' +
+                                    '<ons-col width="3%">:</ons-col>' +
+                                    '<ons-col width="50%"><strong>' + voucher.kode + '</strong></ons-col>' +
+                                    '<hr width="98%"><ons-row><ons-col width="48%"><ons-button id="gambarQR-' + key + '" modifier="large">Kode QR</ons-button></ons-col><ons-col width="4%"></ons-col><ons-col width="48%"><ons-button id="kirimVoucher-' + key + '" modifier="large">Kirim voucher</ons-button></ons-col></ons-row></div></ons-list-item>');
+                                $('#gambarQR-' + key).on('click', function () {
+                                    //console.log(voucher.logo_qr);
+                                    // var gambar = voucher.kode;
+                                    $('#title').append('<span>Kode QR</span>');
+                                    $('#content').append('<div style="padding-left: -10%" id="qrcode"></div>');
+                                    $('#footer').append('<button class="alert-dialog-button" onclick="hideDialog()">Tutup</button>');
+                                    var qrcode = new QRCode("qrcode");
 
+                                    function buatQR() {
+                                        var elText = voucher.kode;
+                                        qrcode.makeCode(elText);
+                                        // if (!elText.value) {
+                                        //     alert("Input a text");
+                                        //     elText.focus();
+                                        //     return;
+                                        // }
+                                    }
+                                    buatQR();
+
+                                    var dialog = document.getElementById('Qr-dialog');
+                                    if (dialog) {
+                                        dialog.show();
+                                    }
+                                });
+                                $('#kirimVoucher-' + key).on('click', function () {
+                                    var idVoucher = voucher.id;
+                                    $('#title').append('<span>Kirim Voucher</span>');
+                                    $('#content').append('<ons-input id="nomor-tujuan" modifier="transparent" type="number" style="width: 100%;" onclick="" placeholder="masukkan nomor"></ons-input>');
+                                    $('#footer').append('<ons-row><ons-col width="48%"><button class="alert-dialog-button" onclick="hideDialog()">Tutup</button></ons-col><ons-col width="4%"></ons-col><ons-col width="48%"><button class="alert-dialog-button" onclick="kirimVoucher(' + idVoucher + ')">Kirim</button></ons-col></ons-row>');
+                                    console.log(idVoucher);
+                                    var dialog = document.getElementById('Qr-dialog');
+                                    if (dialog) {
+                                        dialog.show();
+                                    }
+                                });
+                                console.log(data);
+                            } else {
+                            }
                         }
                     });
 

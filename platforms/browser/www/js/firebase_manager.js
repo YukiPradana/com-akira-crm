@@ -14,17 +14,19 @@ document.addEventListener("deviceready", function () {
     cordova.plugins.firebase.messaging.requestPermission().then(function (token) {
         console.log("APNS device token: " + token);
     });
-   
+    // _FCM_TOKEN=getFirebaseToken();
 });
 
 
 function getFirebaseToken() {
     try {
         cordova.plugins.firebase.messaging.getToken().then(function (token) {
+            alert(token);
             return token;
         });
     } catch (err) {
-        alert("error bwang");
+        // 
+        return "error";
     }
 }
 

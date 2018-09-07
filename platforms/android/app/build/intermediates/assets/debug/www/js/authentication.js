@@ -78,7 +78,7 @@ function Logout() {
 
 
 function Authenticate() {
-    // cekRating();
+    cekRating();
     if (localStorage.getItem('token')) {
         let expired_date = parseInt(localStorage.getItem('expired_date_token'));
         let date_now = new Date().getTime();

@@ -1,6 +1,11 @@
 <!--Halaman home-->
 <ons-page id="Home">
-    <ons-carousel style="height: 100%; width: 98%" swipeable auto-scroll overscrollable id="carousel" auto-scroll-ratio="0.1">
+        <ons-toolbar>
+                <div class="center" style="text-align: center;">
+                    Home
+                </div>
+            </ons-toolbar>
+    <ons-carousel style="height: 75%; width: 94%; margin: auto; margin-top: auto" swipeable auto-scroll  id="carousel" auto-scroll-ratio="0.1">
         <!-- <ons-carousel-item style="background-color: #085078;">
             <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
                 Selamat Datang di Akira
@@ -21,6 +26,12 @@
             <img src="img/akira3.png" height="100%" width="100%">
         </ons-carousel-item>
     </ons-carousel>
+
+    <ons-card>
+        <div id="welcome"></div>
+        <p style="color: brown">Swipe ke kanan untuk Reservasi -> </p>
+        
+    </ons-card>
     <!-- <ons-list>
         <ons-list-item>
             
@@ -39,6 +50,6 @@
         ons.getScriptPage().onShow = function () {
             Authenticate();
         }
-        $('.nama').append('<span>Selamat Datang di Akira</span>');
+        $('#welcome').html('<span>Selamat Datang di Akira,<b> '+_NAMA_USER+'<b>!</span>');
     </script>
 </ons-page>

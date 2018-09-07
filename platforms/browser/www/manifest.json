@@ -1,8 +1,8 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "fcmTest",
-  "short_name": "fcmTest",
+  "name": "Akira",
+  "short_name": "Akira",
   "version": "com.myapp.fcmTest",
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "author": "Apache Cordova Team",

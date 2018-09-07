@@ -12,7 +12,7 @@
         <param name="android-package" value="com.alexanderploner.datetimepicker.DateTimePicker" />
         <param name="onload" value="true" />
     </feature>
-    <name>fcmTest</name>
+    <name>Akira</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -29,5 +29,6 @@
     <allow-intent href="geo:*" />
     <allow-intent href="market:*" />
     <resource-file src="google-services.json" target="app/google-services.json" />
+    <icon src="www/img/akira_putih.png" />
     <preference name="loglevel" value="DEBUG" />
 </widget>

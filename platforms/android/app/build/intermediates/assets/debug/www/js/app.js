@@ -27,6 +27,8 @@ var isiAbout;
 
 //variable ratting
 var arrayRating = [];
+var idReservasiRating;
+
 
 
 

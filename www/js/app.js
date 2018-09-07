@@ -27,6 +27,8 @@ var isiAbout;
 
 //variable ratting
 var arrayRating = [];
+var idReservasiRating;
+
 
 
 
@@ -64,7 +66,7 @@ document.addEventListener('init', function (event) {
                 if (passDaftar === passDaftarLagi) {
                     $.ajax({
                         type: 'POST',
-                        url: _URL + 'mutation{AddUser (nama:"' + namaDaftar + '", username:"' + nomorDaftar + '", password:"' + passDaftar + '", jk:"' + jenisKelamin + '"){id, nama, username}}',
+                        url: _URL + 'mutation{AddUser (nama:"' + namaDaftar + '", username:"' + nomorDaftar + '", password:"' + passDaftar + '", jk:"' + jenisKelamin + '", scope:"",tenant:""){id, nama, username}}',
                         success: function (data) {
                             document.querySelector('#ons-modal2').hide();
                             ons.notification.alert("anda telah berhasil mendaftar");

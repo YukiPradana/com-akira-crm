@@ -11,9 +11,9 @@ document.addEventListener("deviceready", function () {
         console.log("New background FCM message: ", payload);
         // alert("New foreground FCM message: "+ payload);
     });
-    cordova.plugins.firebase.messaging.requestPermission().then(function (token) {
-        console.log("APNS device token: " + token);
-    });
+    // cordova.plugins.firebase.messaging.requestPermission().then(function (token) {
+    //     console.log("APNS device token: " + token);
+    // });
     // _FCM_TOKEN=getFirebaseToken();
 });
 

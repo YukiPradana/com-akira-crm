@@ -243,6 +243,8 @@
                     if (event.target.id !== idJeniskelamin) {
                         // $('#input-terapis').value = "";
                         document.getElementById("input-terapis").value = null;
+                        terapisDipilih = null;
+                        idJeniskelamin = event.target.id;
                     }
                 })
             }

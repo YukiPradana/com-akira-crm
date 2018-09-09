@@ -61,6 +61,7 @@
     </ons-modal>
     <script>
         ons.getScriptPage().onInit = function () {
+            arrayRating=[];
             $("#modal-rating").show();
             $.ajax({
                 type: 'GET',
@@ -84,7 +85,7 @@
 
                         let listProduktambah = '<span>' + produk_nama + '<span>';
                         console.log(listProduktambah);
-                        $("#list-jasa-review").append(listProduk);
+                        $("#list-jasa-review").append(listProduktambah);
                         let listKaryawantambah = '<span>' + karyawan_nama + '<span>';
                         $("#list-karyawan-review").append(listKaryawantambah);
 

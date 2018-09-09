@@ -377,6 +377,26 @@ function setDataTerapis(nama, id) {
 //     terapisDipilih = null;
 // }
 
+//tanggal hari ini
+function getTanggal() {
+    let date = new Date();
+    let day = '' + date.getDate();
+    let month = '' + (date.getMonth() + 1);
+    // let thisDay =date.getDay();
+    //     thisDay = myDays[thisDay];
+    let yy = date.getYear();
+    let year = (yy < 1000) ? yy + 1900 : yy;
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    // let dateString = thisDay + ', ' + day + ' ' + months[month] + ' ' + year;
+    let tanggal = year + '-' + month + '-' + day;
+
+    return tanggal;
+
+}
+
 function setTanggalReservasi(jam, hari, tanggal) {
     tanggalReservasi = tanggal; //tanggal 2018-12-31
     hariReservasi = hari; //senin, selasa, rabu

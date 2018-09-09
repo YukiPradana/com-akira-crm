@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Sep 07 14:16:53 ICT 2018
+#Fri Sep 07 15:37:38 ICT 2018
 20.base=C\:\\Users\\Yuki\\TesFCMFolder\\FCMTest1\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 143.base=C\:\\Users\\Yuki\\TesFCMFolder\\FCMTest1\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 340.file=C\:\\Users\\Yuki\\TesFCMFolder\\FCMTest1\\platforms\\android\\app\\build\\intermediates\\assets\\debug\\www\\onsenui\\esm\\elements\\ons-list-item\\animator.js

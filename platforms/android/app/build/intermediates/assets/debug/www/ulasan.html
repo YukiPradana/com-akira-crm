@@ -64,25 +64,32 @@
             $("#modal-rating").show();
             $.ajax({
                 type: 'GET',
-                url: _URL + '{headerReservasi(id:' + idReservasiRating + ') {id, tanggal_reservasi, kode, detail_reservasi{ header_reservasi_id, produk_id{waktu,nama,harga,kode}karyawan_id{nama}},status_reservasi {status,progress}}}',
+                url: _URL + '{headerReservasi(id:' + idReservasiRating + ') {id, tanggal_reservasi, kode, detail_reservasi{ header_reservasi_id, produk_id{waktu,nama,harga,kode}karyawan_id{id,nama}},status_reservasi {status,progress}}}',
                 success: function (data) {
                     console.log(data);
-                    let datas = data.data.headerReservasi;
+                    
+                    let datas = data.data.headerReservasi[0];
+                    let tanggal=datas.tanggal_reservasi;
                     let detail = datas.detail_reservasi;
+
+                    $('#tanggal-transaksi').html(tanggal);
 
                     $.each(detail, function (key, dt) {
                         let produk_id = dt.produk_id.id;
                         let produk_nama = dt.produk_id.nama;
-
+                        console.log(produk_nama);
                         let karyawan_id = dt.karyawan_id.id;
+                        console.log(karyawan_id);
                         let karyawan_nama = dt.karyawan_id.nama;
 
-                        let listProduk = $('<ons-list-item modifier="nodivider>' + produk_nama + '</ons-list-item>');
+                        let listProduktambah = '<span>' + produk_nama + '<span>';
+                        console.log(listProduktambah);
                         $("#list-jasa-review").append(listProduk);
-                        let listKaryawan = $('<ons-list-item modifier="nodivider>' + karyawan_nama + '</ons-list-item>');
-                        $("#list-karyawan-review").append(listKaryawan);
+                        let listKaryawantambah = '<span>' + karyawan_nama + '<span>';
+                        $("#list-karyawan-review").append(listKaryawantambah);
 
                         arrayRating.push({ "id_karyawan": karyawan_id });
+                        
 
                     });
                     $("#modal-rating").hide();
@@ -97,11 +104,20 @@
             });
 
             $("#tombol-kirim-ulasan").on("click", function () {
+                console.log(arrayRating);
                 let valueRating = $('input[name=ratingRadio]:checked').val();
+                if (valueRating==null||valueRating==undefined){
+                    valueRating=0;
+                }
+                console.log(valueRating);
                 let comment = $('#input-komentar').val();
+                if (comment==null||comment==undefined){
+                    comment="-";
+                }
                 $("#modal-rating-kirim").show();
 
                 $.each(arrayRating, function (key, value) {
+                    console.log(arrayRating[key].id_karyawan);
                     $.ajax({
                         type: 'POST',
                         url: _URL + 'mutation{createRating(karyawan_id: ' + arrayRating[key].id_karyawan + ', user_id: ' + _ID_USER + ', rating: ' + valueRating + ', komentar: "' + comment + '",header_reservasi_id:' + idReservasiRating + ') {rating,komentar }}',
@@ -116,8 +132,9 @@
                 );
                 $("#modal-rating-kirim").hide();
 
-                ons.notification.toast("Rating terkirim ;)");
+                ons.notification.toast("Rating terkirim ;)",{ timeout: 1000, animation: 'fall' });
                 document.querySelector('#myNavigator').popPage();
+                arrayRating=[];
 
             })
         }

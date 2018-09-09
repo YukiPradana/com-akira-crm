@@ -72,7 +72,7 @@
                     let datas = data.data.headerReservasi[0];
                     let tanggal=datas.tanggal_reservasi;
                     let detail = datas.detail_reservasi;
-
+                    
                     $('#tanggal-transaksi').html(tanggal);
 
                     $.each(detail, function (key, dt) {
@@ -83,10 +83,10 @@
                         console.log(karyawan_id);
                         let karyawan_nama = dt.karyawan_id.nama;
 
-                        let listProduktambah = '<span>' + produk_nama + '<span>';
+                        let listProduktambah = ' <ons-list-item>' + produk_nama + '</ons-list-item>';
                         console.log(listProduktambah);
                         $("#list-jasa-review").append(listProduktambah);
-                        let listKaryawantambah = '<span>' + karyawan_nama + '<span>';
+                        let listKaryawantambah = '<ons-list-item>' + karyawan_nama + '</ons-list-item>';
                         $("#list-karyawan-review").append(listKaryawantambah);
 
                         arrayRating.push({ "id_karyawan": karyawan_id });
@@ -133,7 +133,7 @@
                 );
                 $("#modal-rating-kirim").hide();
 
-                ons.notification.toast("Rating terkirim ;)",{ timeout: 1000, animation: 'fall' });
+                ons.notification.toast("Rating terkirim ;)",{ timeout: 1000, animation: 'ascend' });
                 document.querySelector('#myNavigator').popPage();
                 arrayRating=[];
 

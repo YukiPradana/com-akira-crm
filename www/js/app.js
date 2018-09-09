@@ -66,7 +66,7 @@ document.addEventListener('init', function (event) {
                 if (passDaftar === passDaftarLagi) {
                     $.ajax({
                         type: 'POST',
-                        url: _URL + 'mutation{AddUser (nama:"' + namaDaftar + '", username:"' + nomorDaftar + '", password:"' + passDaftar + '", jk:"' + jenisKelamin + '", scope:"",tenant:""){id, nama, username}}',
+                        url: _URL + 'mutation{AddUser (nama:"' + namaDaftar + '", username:"' + nomorDaftar + '", password:"' + passDaftar + '", jk:"' + jenisKelamin + '"){id, nama, username}}',
                         success: function (data) {
                             document.querySelector('#ons-modal2').hide();
                             ons.notification.alert("anda telah berhasil mendaftar");
@@ -118,12 +118,9 @@ document.addEventListener('init', function (event) {
         // };
         page.querySelector('#tombol-atur-keluar').onclick = function () {
             // showModal8();
-            // function showModal8() {
-            document.querySelector('#ons-modal8').show();
-            setTimeout(function () {
-                document.querySelector('#ons-modal8').hide();
+            // function showModal8() {      
                 Logout();
-            }, 2000);
+            
             // }
         };
     } else if (page.id === 'AturProfil') {

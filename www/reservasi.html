@@ -217,10 +217,19 @@
         };
         function tampilMenuTambah() {
             $('#list-isi').empty();
+            let checked1;
+            let checked2;
+            if (_JENIS_KELAMIN == 'l') {
+                checked1 = 'checked';
+                checked2 = '';
+            } else {
+                checked1 = '';
+                checked2 = 'checked';
+            }
             $('#list-isi').append('<ons-list modifier="inset" id="list-tambah"><ons-list-item modifier="longdivider">' +
                 '<ons-row><ons-col width="40%" style="text-align: right">Jenis Kelamin:</ons-col><ons-col width="2%"></ons-col>' +
-                '<ons-col width="58%"><ons-radio class="jenis2" name="jenisKelamin2" value="l" input-id="radio-1" checked></ons-radio><label for="radio-1"> Pria  </label>' +
-                '<ons-radio class="jenis2" name="jenisKelamin2" value="p" input-id="radio-2" ></ons-radio><label for="radio-2" > Wanita</label></ons-col></ons-row></ons-list-item>' +
+                '<ons-col width="58%"><ons-radio class="jenis2" name="jenisKelamin2" value="l" input-id="radio-1" ' + checked1 + '></ons-radio><label for="radio-1"> Pria  </label>' +
+                '<ons-radio class="jenis2" name="jenisKelamin2" value="p" input-id="radio-2" ' + checked2 + ' ></ons-radio><label for="radio-2" > Wanita</label></ons-col></ons-row></ons-list-item>' +
                 '<ons-list-item modifier="longdivider"><ons-row><ons-col width="40%" style="text-align: right">Paket Jasa :</ons-col>' +
                 '<ons-col width="2%"></ons-col><ons-col width="58%" style="text-align: left">' +
                 '<ons-input type="button" id="input-paket-jasa" type="text" modifier="transparent" style="width: 100%;" placeholder=""></ons-input>' +

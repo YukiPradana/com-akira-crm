@@ -121,7 +121,7 @@
                     console.log(arrayRating[key].id_karyawan);
                     $.ajax({
                         type: 'POST',
-                        url: _URL + 'mutation{createRating(karyawan_id: ' + arrayRating[key].id_karyawan + ', user_id: ' + _ID_USER + ', rating: ' + valueRating + ', komentar: "' + comment + '",header_reservasi_id:' + idReservasiRating + ') {rating,komentar }}',
+                        url: _URL + 'mutation{createRating(karyawan_id: ' + arrayRating[key].id_karyawan + ', user_id: ' + _ID_SERVER_USER + ', rating: ' + valueRating + ', komentar: "' + comment + '",header_reservasi_id:' + idReservasiRating + ') {rating,komentar }}',
                         success: function (data) {
                             console.log(data);
                         },

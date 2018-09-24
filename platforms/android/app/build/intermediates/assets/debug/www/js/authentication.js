@@ -61,7 +61,7 @@ function Login(userMasuk, passMasuk) {
 
     // $.ajax({
     //     type: 'POST',
-    //     url: _URL + 'mutation{Authenticate(input: {username:"' + userMasuk + '", password:"' + passMasuk + '",fcm_token:"' + _FCM_TOKEN + '"}) {token, user {id, username, jenis_kelamin, nama, organizations{nama,scopes}}}}',
+    //     url: _URL + 'mutation{Authenticate(input: {username:"' + userMasuk + '", password:"' + passMasuk + '",fcm_token:""}) {token, user {id, username, jenis_kelamin, nama, organizations{nama,scopes}}}}',
     //     success: function (data) {
     //         document.querySelector('#ons-modal').hide();
     //         var isi = data.data.Authenticate;

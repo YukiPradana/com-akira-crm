@@ -117,6 +117,7 @@
                                         //looping pesanannya
                                         $.each(reservasi.data.headerReservasi[key].detail_reservasi, function (key1, detail) {
                                             let idIsiReservasi = detail.header_reservasi_id;
+                                            console.log(detail);
                                             if (idIsiReservasi == id) {
                                                 totalHargaUser = totalHargaUser + detail.produk_id.harga;
                                                 var isiList = $('<hr width="98%"><ons-row>' +

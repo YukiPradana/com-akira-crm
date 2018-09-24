@@ -101,60 +101,62 @@
                                 if (reser.status_reservasi[0].status != "rated") {
                                     console.log(reser.status_reservasi[0].progress);
                                     if (reser.status_reservasi[0].progress != "checkin") {
-                                        let tanggal = reser.tanggal_reservasi;
-                                        let thn = tanggal.substr(0, 4);
-                                        let bln = tanggal.substr(5, 2);
-                                        let hari = tanggal.substr(8, 2);
-                                        let jam = tanggal.substr(11, 5);
-                                        let tanggal2 = hari + '-' + bln + '-' + thn + ', ' + jam;
-                                        let id = reser.id;
-                                        var list = $('<ons-list-item expandable><span><strong>' + tanggal2 + '</strong></span><div class="expandable-content" id="isi-list-content-' + key + '"><ons-row>' +
-                                            '<ons-col width="35%">Tempat</ons-col>' +
-                                            '<ons-col width="3%">:</ons-col>' +
-                                            '<ons-col width="50%">Akira Reflexology</ons-col></ons-row>' +
-                                            '</div></ons-list-item>');
-                                        $("#reservasiUser").append(list);
-                                        //looping pesanannya
-                                        $.each(reservasi.data.headerReservasi[key].detail_reservasi, function (key1, detail) {
-                                            let idIsiReservasi = detail.header_reservasi_id;
-                                            console.log(detail);
-                                            if (idIsiReservasi == id) {
-                                                totalHargaUser = totalHargaUser + detail.produk_id.harga;
-                                                var isiList = $('<hr width="98%"><ons-row>' +
-                                                    '<ons-col width = "35%" > Jasa</ons-col >' +
-                                                    '<ons-col width="3%">:</ons-col>' +
-                                                    '<ons-col width="50%">' + detail.produk_id.nama + ', ' + detail.produk_id.waktu + '</ons-col>' +
-                                                    '</ons-row >' +
-                                                    '<ons-row>' +
-                                                    '<ons-col width="35%">Nama Terapis</ons-col>' +
-                                                    '<ons-col width="3%">:</ons-col>' +
-                                                    '<ons-col width="50%">' + detail.karyawan_id.nama + '</ons-col>' +
-                                                    '</ons-row>');
-                                                $('#isi-list-content-' + key).append(isiList);
-                                            }
+                                        if (reser.status_reservasi[0].progress != "selesai") {
+                                            let tanggal = reser.tanggal_reservasi;
+                                            let thn = tanggal.substr(0, 4);
+                                            let bln = tanggal.substr(5, 2);
+                                            let hari = tanggal.substr(8, 2);
+                                            let jam = tanggal.substr(11, 5);
+                                            let tanggal2 = hari + '-' + bln + '-' + thn + ', ' + jam;
+                                            let id = reser.id;
+                                            var list = $('<ons-list-item expandable><span><strong>' + tanggal2 + '</strong></span><div class="expandable-content" id="isi-list-content-' + key + '"><ons-row>' +
+                                                '<ons-col width="35%">Tempat</ons-col>' +
+                                                '<ons-col width="3%">:</ons-col>' +
+                                                '<ons-col width="50%">Akira Reflexology</ons-col></ons-row>' +
+                                                '</div></ons-list-item>');
+                                            $("#reservasiUser").append(list);
+                                            //looping pesanannya
+                                            $.each(reservasi.data.headerReservasi[key].detail_reservasi, function (key1, detail) {
+                                                let idIsiReservasi = detail.header_reservasi_id;
+                                                console.log(detail);
+                                                if (idIsiReservasi == id) {
+                                                    totalHargaUser = totalHargaUser + detail.produk_id.harga;
+                                                    var isiList = $('<hr width="98%"><ons-row>' +
+                                                        '<ons-col width = "35%" > Jasa</ons-col >' +
+                                                        '<ons-col width="3%">:</ons-col>' +
+                                                        '<ons-col width="50%">' + detail.produk_id.nama + ', ' + detail.produk_id.waktu + '</ons-col>' +
+                                                        '</ons-row >' +
+                                                        '<ons-row>' +
+                                                        '<ons-col width="35%">Nama Terapis</ons-col>' +
+                                                        '<ons-col width="3%">:</ons-col>' +
+                                                        '<ons-col width="50%">' + detail.karyawan_id.nama + '</ons-col>' +
+                                                        '</ons-row>');
+                                                    $('#isi-list-content-' + key).append(isiList);
+                                                }
 
-                                        });
-                                        var hargaDanTombol = $('<hr width="98%"><ons-row>' +
-                                            '<ons-col width="35%">Pesanan anda</ons-col>' +
-                                            '<ons-col width="3%">:</ons-col>' +
-                                            '<ons-col width="50%">' + reser.status_reservasi[0].status + '</ons-col></ons-row>' +
-                                            '<ons-row>' +
-                                            '<ons-col width="35%">Estimasi harga</ons-col>' +
-                                            '<ons-col width="3%">:</ons-col>' +
-                                            '<ons-col width="50%"> Rp.' + numberWithCommas(totalHargaUser) + '</ons-col></ons-row>' +
-                                            '<hr width="98%"><ons-button id="reservasi-' + key + '">Batal</ons-button>');
-                                        $('#isi-list-content-' + key).append(hargaDanTombol);
-                                        totalHargaUser = 0;
-                                        $('#reservasi-' + key).on('click', function () {
-                                            idReservasi = reser.kode;
-                                            console.log(idReservasi);
-                                            $('#isi-batal').append('Anda yakin akan membatalkan reservasi pada tanggal <br>' + tanggal2 + '?');
-                                            // $('.alert-dialog-footer2').append('<ons-row><ons-col width="48%"><button class="alert-dialog-button" onclick="hideDialogReser()">Batal</button></ons-col><ons-col width="4%"></ons-col><ons-col width="48%"><button class="alert-dialog-button" id="fix-batal">Oke</button></ons-col></ons-row>');
-                                            var dialog = document.getElementById('batal-dialog');
-                                            if (dialog) {
-                                                dialog.show();
-                                            }
-                                        });
+                                            });
+                                            var hargaDanTombol = $('<hr width="98%"><ons-row>' +
+                                                '<ons-col width="35%">Pesanan anda</ons-col>' +
+                                                '<ons-col width="3%">:</ons-col>' +
+                                                '<ons-col width="50%">' + reser.status_reservasi[0].status + '</ons-col></ons-row>' +
+                                                '<ons-row>' +
+                                                '<ons-col width="35%">Estimasi harga</ons-col>' +
+                                                '<ons-col width="3%">:</ons-col>' +
+                                                '<ons-col width="50%"> Rp.' + numberWithCommas(totalHargaUser) + '</ons-col></ons-row>' +
+                                                '<hr width="98%"><ons-button id="reservasi-' + key + '">Batal</ons-button>');
+                                            $('#isi-list-content-' + key).append(hargaDanTombol);
+                                            totalHargaUser = 0;
+                                            $('#reservasi-' + key).on('click', function () {
+                                                idReservasi = reser.kode;
+                                                console.log(idReservasi);
+                                                $('#isi-batal').append('Anda yakin akan membatalkan reservasi pada tanggal <br>' + tanggal2 + '?');
+                                                // $('.alert-dialog-footer2').append('<ons-row><ons-col width="48%"><button class="alert-dialog-button" onclick="hideDialogReser()">Batal</button></ons-col><ons-col width="4%"></ons-col><ons-col width="48%"><button class="alert-dialog-button" id="fix-batal">Oke</button></ons-col></ons-row>');
+                                                var dialog = document.getElementById('batal-dialog');
+                                                if (dialog) {
+                                                    dialog.show();
+                                                }
+                                            });
+                                        }
                                     }
                                 }
                             }

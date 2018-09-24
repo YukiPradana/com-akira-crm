@@ -1,0 +1,174 @@
+<ons-page id="Riwayat">
+    <ons-pull-hook id="pull-hook2" threshold-height="120px">
+        <ons-icon id="pull-hook-icon2" size="22px" class="pull-hook-content" icon="fa-arrow-down"></ons-icon>
+    </ons-pull-hook>
+    <ons-list id="riwayatReservasi">
+        <!-- <ons-list-header>Riwayat transaksi anda</ons-list-header> -->
+
+        <!-- <ons-list-item modifier="chevron" tappable id="riwayat-1">
+            <span>12-11-2017 : 13.00</span>
+            <ons-row>
+                <ons-col>
+                    Paket Jasa
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    nama terapis
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    Akira Reflexology
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    Rp. 4k
+                </ons-col>
+            </ons-row>
+        </ons-list-item> -->
+    </ons-list>
+    <script>
+        function setDataRating(id) {
+            idReservasiRating = id;
+        }
+
+        ons.getScriptPage().onShow = function () {
+            Authenticate();
+            tampilkanRiwayatSaya();
+            var pullHook = document.getElementById('pull-hook2');
+            var icon = document.getElementById('pull-hook-icon2');
+            pullHook.addEventListener('changestate', function (event) {
+                switch (event.state) {
+                    case 'initial':
+                        icon.setAttribute('icon', 'fa-arrow-down');
+                        icon.removeAttribute('rotate');
+                        icon.removeAttribute('spin');
+                        break;
+                    case 'preaction':
+                        icon.setAttribute('icon', 'fa-arrow-down');
+                        icon.setAttribute('rotate', '180');
+                        icon.removeAttribute('spin');
+                        break;
+                    case 'action':
+                        icon.setAttribute('icon', 'fa-spinner');
+                        icon.removeAttribute('rotate');
+                        icon.setAttribute('spin', true);
+                        break;
+                }
+            });
+            pullHook.onAction = function (done) {
+                setTimeout(function () {
+                    $('#riwayatReservasi').empty();
+                    $('#riwayatReservasi').append('<ons-list-header>Riwayat transaksi anda</ons-list-header>');
+                    tampilkanRiwayatSaya();
+                    done();
+                }, 1000);
+            }
+        };
+        function tampilkanRiwayatSaya() {
+            $("#riwayatReservasi").empty();
+            let loadingCircle = $("<div style='text-align:center;'> <ons-progress-circular id='loading'  indeterminate></ons-progress-circular></div>");
+            $("#riwayatReservasi").append(loadingCircle);
+            let totalHargaUser = 0;
+            $.ajax({
+                type: 'GET',
+                url: _URL + '{headerReservasi(username: "' + _ID_USER + '") {id, tanggal_reservasi, kode, detail_reservasi{ header_reservasi_id, produk_id{waktu,nama,harga,kode}karyawan_id{nama}},status_reservasi {status,progress}}}',
+                success: function (reservasi) {
+                    console.log(reservasi);
+                    $('#loading').remove();
+                    $("#riwayatReservasi").empty();
+                    
+                    $.each(reservasi.data.headerReservasi, function (key, reser) {
+
+                        if (reser.status_reservasi[0].progress != "checkin" || (reser.status_reservasi[0].progress == "diterima" && reser.status_reservasi[0].status == "ditolak") || (reser.status_reservasi[0].progress == "batal" && reser.status_reservasi[0].status == "batal")) {
+                            if (reser.status_reservasi[0].progress == "diterima" && reser.status_reservasi[0].status == "pending") {
+                                console.log("asw");
+                            } else {
+                                let color;
+                                let tap = "";
+                                let reviewMe = "";
+                                if (reser.status_reservasi[0].status == "batal") {
+                                    color = "antiquewhite";
+
+                                } else if (reser.status_reservasi[0].status == "ditolak") {
+                                    color = "#ed4765";
+                                } else if (reser.status_reservasi[0].status == "rated") {
+                                    color = "#ffeb6b";
+                                } else if (reser.status_reservasi[0].status == "konfirm") {
+                                    if (reser.status_reservasi[0].progress == "selesai") {
+                                        color = "#8beda2";
+                                        tap = "tappable";
+                                        reviewMe = '<ons-row>' +
+                                            '<ons-col width="97%" style="color:#ffffff;text-align:right;margin-right:2% "> Berikan Kami Masukan disini! </ons-col>' +
+                                            '</ons-row>';
+                                    } else {
+                                        color = "#a3ff5e";
+                                    }
+                                }
+                                let tanggal = reser.tanggal_reservasi;
+                                let thn = tanggal.substr(0, 4);
+                                let bln = tanggal.substr(5, 2);
+                                let hari = tanggal.substr(8, 2);
+                                let jam = tanggal.substr(11, 5);
+                                let tanggal2 = hari + '-' + bln + '-' + thn + ', ' + jam;
+                                let id = reser.id;
+
+                                // var list = $("<ons-list-item expandable><span><strong>" + tanggal2 + "</strong></span><div class='expandable-content' id='list-content-" + key + "'><span>Tempat\t : Akira Reflexology</span><br></div></ons-list-item>");
+                                var list2 = $('<ons-list-item id="riwayat-' + key + '" style="background-color: ' + color + '" ' + tap + ' longdivider>'+reviewMe+'<span class="list-item__title">' + tanggal2 + '</span><br><span class="list-item__subtitle" id="list-content-' + key + '"><ons-row>' +
+                                    '<ons-col width = "30%" >Tempat</ons-col >' +
+                                    '<ons-col width="3%">:</ons-col>' +
+                                    '<ons-col width="50%">Akira Reflexology</ons-col>' +
+                                    '</ons-row></span></ons-list-item>');
+                                $("#riwayatReservasi").prepend(list2);
+                                if (tap == "tappable") {
+                                    $("#riwayat-" + key).on("click", function () {
+                                        setDataRating(id);
+                                        document.querySelector('#myNavigator').pushPage('ulasan.html');
+
+                                    });
+                                }
+                                //looping pesanannya
+                                $.each(reservasi.data.headerReservasi[key].detail_reservasi, function (key1, detail) {
+                                    let idIsiReservasi = detail.header_reservasi_id;
+                                    if (idIsiReservasi == id) {
+                                        totalHargaUser = totalHargaUser + detail.produk_id.harga;
+                                        var isiList = $('<hr width="98%"><ons-row>' +
+                                            '<ons-col width = "30%" > Jasa</ons-col >' +
+                                            '<ons-col width="3%">:</ons-col>' +
+                                            '<ons-col width="50%">' + detail.produk_id.nama + '</ons-col>' +
+                                            '</ons-row >' +
+                                            '<ons-row>' +
+                                            '<ons-col width="30%">Nama Terapis</ons-col>' +
+                                            '<ons-col width="3%">:</ons-col>' +
+                                            '<ons-col width="50%">' + detail.karyawan_id.nama + '</ons-col>' +
+                                            '</ons-row>' +
+                                            '<ons-row>' +
+                                            '<ons-col width="30%">Pesanan anda</ons-col>' +
+                                            '<ons-col width="3%">:</ons-col>' +
+                                            '<ons-col width="50%">' + reser.status_reservasi[0].status + '</ons-col>' +
+                                            '</ons-row>' +
+                                            '<ons-row>' +
+                                            '<ons-col width="30%">Progress anda</ons-col>' +
+                                            '<ons-col width="3%">:</ons-col>' +
+                                            '<ons-col width="50%">' + reser.status_reservasi[0].progress + '</ons-col>' +
+                                            '</ons-row>');
+                                        $('#list-content-' + key).append(isiList);
+                                    }
+                                });
+                            }
+                        }
+
+                    });
+                    let header="<ons-list-header>Riwayat transaksi anda</ons-list-header>"
+                    $("#riwayatReservasi").prepend(header);
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+        };
+    </script>
+</ons-page>

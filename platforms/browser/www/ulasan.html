@@ -22,8 +22,8 @@
         <div>Berikan Rating anda</div>
         <div>
             <fieldset class="rating">
-                <input type="radio" id="star5" name="ratingRadio" value="5" />
-                <label class="full" for="star5" title="Awesome - 5 stars"></label>
+                <!-- <input type="radio" id="star5" name="ratingRadio" value="5" />
+                <label class="full" for="star5" title="Awesome - 5 stars"></label> -->
                 <input type="radio" id="star4" name="ratingRadio" value="4" />
                 <label class="full" for="star4" title="Pretty good - 4 stars"></label>
                 <input type="radio" id="star3" name="ratingRadio" value="3" />
@@ -121,7 +121,7 @@
                     console.log(arrayRating[key].id_karyawan);
                     $.ajax({
                         type: 'POST',
-                        url: _URL + 'mutation{createRating(karyawan_id: ' + arrayRating[key].id_karyawan + ', user_id: ' + _ID_USER + ', rating: ' + valueRating + ', komentar: "' + comment + '",header_reservasi_id:' + idReservasiRating + ') {rating,komentar }}',
+                        url: _URL + 'mutation{createRating(karyawan_id: ' + arrayRating[key].id_karyawan + ', user_id: ' + _ID_SERVER_USER + ', rating: ' + valueRating + ', komentar: "' + comment + '",header_reservasi_id:' + idReservasiRating + ') {rating,komentar }}',
                         success: function (data) {
                             console.log(data);
                         },

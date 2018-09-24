@@ -1,4 +1,4 @@
-var _URL = 'http://25dcb11c.ngrok.io/graphql?query=';
+var _URL = 'http://85941bf0.ngrok.io/graphql?query=';
 
 var _URL_PRODUK = _URL + '{produk{id, nama, waktu, harga, deskripsi}}';
 

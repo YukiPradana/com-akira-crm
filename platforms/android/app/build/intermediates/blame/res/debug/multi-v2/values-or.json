@@ -21,28 +21,6 @@
                     }
                 }
             ]
-        },
-        {
-            "outputFile": "C:\\Users\\Ulil-L\\akira\\akira-crm-fcm\\com-akira-crm\\platforms\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-or\\values-or.xml",
-            "map": [
-                {
-                    "source": "C:\\Users\\Ulil-L\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-17.1.0.aar\\48fd3b354c936b6bd661802033033c2e\\res\\values-or\\values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "205",
-                        "endColumns": "102",
-                        "endOffsets": "307"
-                    },
-                    "to": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "106",
-                        "endOffsets": "157"
-                    }
-                }
-            ]
         }
     ]
 }

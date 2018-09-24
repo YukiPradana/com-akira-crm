@@ -10,8 +10,8 @@
     <!--card edit profil-->
     <ons-card>
         <ons-row align="center">
-            <ons-col width=30%>
-                <img src="img/myAvatar.png" style="height: 80%; width: 80%;border-radius: 50%">
+            <ons-col width=30% id="myAvatar">
+                
             </ons-col>
             <ons-col width=70% style="text-align: center">
                 <span id="nama-user">.</span>
@@ -45,8 +45,8 @@
         </ons-row>
     </ons-card> -->
     <ons-card>
-        <div><strong>Data Diri</strong></div>
-        <div style="padding-left: 5%; padding-top: 2%">Info ini hanya bisa dilihat oleh anda</div>
+        <div><strong>Jenis kelamin</strong></div>
+        <div style="padding-left: 5%; padding-top: 2%" id='jenis_kelamin_'></div>
         <div style="padding-top: 2%"><strong>Nomor Ponsel</strong></div>
         <div style="padding-left: 5%; padding-top: 2%" id="nomor-telp">0</div>
     </ons-card>
@@ -73,6 +73,15 @@
             Authenticate();
             document.getElementById("nama-user").innerHTML = _NAMA_USER;
             document.getElementById("nomor-telp").innerHTML = _ID_USER;
+        };
+        ons.getScriptPage().onInit = function(){
+            if (_JENIS_KELAMIN == 'l') {
+                document.getElementById("jenis_kelamin_").innerHTML = "Laki - laki";
+                $('#myAvatar').append('<img src="img/myAvatar.png" style="height: 80%; width: 80%;border-radius: 50%">');                
+            } else {
+                document.getElementById("jenis_kelamin_").innerHTML = "Perempuan";
+                $('#myAvatar').append('<img src="img/myAvatar2.png" style="height: 80%; width: 80%;border-radius: 50%">');                
+            }
         };
         // testHistory();
     </script>

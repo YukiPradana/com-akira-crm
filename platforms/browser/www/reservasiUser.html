@@ -71,6 +71,7 @@
                     success: function (data) {
                         console.log(data);
                         document.querySelector('#ons-modal7').hide();
+                        $('#isi-batal').empty();
                         document.getElementById("batal-dialog").hide();
                         tampilkanReserfasiSaya();
                     }, error: function (data) {
@@ -110,7 +111,7 @@
                                         var list = $('<ons-list-item expandable><span><strong>' + tanggal2 + '</strong></span><div class="expandable-content" id="isi-list-content-' + key + '"><ons-row>' +
                                             '<ons-col width="35%">Tempat</ons-col>' +
                                             '<ons-col width="3%">:</ons-col>' +
-                                            '<ons-col width="50%">Akira Reflecology</ons-col></ons-row>' +
+                                            '<ons-col width="50%">Akira Reflexology</ons-col></ons-row>' +
                                             '</div></ons-list-item>');
                                         $("#reservasiUser").append(list);
                                         //looping pesanannya

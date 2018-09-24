@@ -49,8 +49,8 @@
                 let loadingCircle = $("<div style='text-align:center;'> <ons-progress-circular id='loading'  indeterminate></ons-progress-circular></div>");
                 $("#daftar-terapis").append(loadingCircle);
                 let jenisKelamin2 = $('input[name=jenisKelamin2]:checked').val();
-                // ons.notification.alert(jenisKelamin2);
                 let tanggal = tanggalReservasi + ' ' + jamReservasi;
+                ons.notification.alert(tanggal);
                 // var daftar_terapis;
                 $.ajax({
                     type: 'GET',
